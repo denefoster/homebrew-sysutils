@@ -517,8 +517,20 @@ class Ansibleinz < Formula
   end
 
   def install
-    virtualenv_install_with_resources
+    venv = virtualenv_create(libexec)
+
+    res = resources.map(&:name).to_set - ["ara", "molecule"]
+    venv.pip_install_and_link resource("ara")
+    venv.pip_install_and_link resource("molecule")
+
+    res.each do |r|
+      venv.pip_install resource(r)
+    end
+    venv.pip_install_and_link buildpath
   end
+#  def install
+#    virtualenv_install_with_resources
+#  end
 
   test do
     false
