@@ -7,6 +7,9 @@ class Ansibleinz < Formula
   sha256 "da61afb29cc5bd6bc4737a2da06e673fb6fccc3ae2685130d19ab3a8e404fb6a"
 
   depends_on :python
+  depends_on "pkg-config" => :build
+  depends_on "libyaml"
+  depends_on "openssl@1.1"
 
   resource "alembic" do
     url "https://files.pythonhosted.org/packages/52/ec/4514b7b9a849e9b35ebf60888c9a1cf8262e927e9a9c8f894ffbf5a76ec7/alembic-0.9.5.tar.gz"
