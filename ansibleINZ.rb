@@ -1,4 +1,4 @@
-class AnsibleINZ < Formula
+class Ansibleinz < Formula
   include Language::Python::Virtualenv
 
   desc "Automate deployment, configuration, and upgrading"
