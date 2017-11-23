@@ -15,17 +15,12 @@ class Ansibleinz < Formula
   bottle do
     root_url "http://vagrant.nzrs.net.nz"
     cellar :any
-    sha256 "ef17adc7fd59d82e2e8df30a5ca7910027dfef3e4cd81bab0ce98b6ad4615b0d" => :high_sierra
+    sha256 "286be3a433c8830e083b7cd5e848b31dc0e5830f11d39c5a1226c66ec097f93e" => :high_sierra
   end
 
   resource "alembic" do
     url "https://files.pythonhosted.org/packages/bf/b3/b28ea715824f8455635ece3c12f59d5d205f98cc378858e414e3aa6ebdbc/alembic-0.9.6.tar.gz"
     sha256 "042851ebe9efa07be6dc1395b1793b6c1d8964a39b73a0ce1649e2bcd41ea732"
-  end
-
-  resource "ansible" do
-    url "https://files.pythonhosted.org/packages/1a/53/6d6c0d46a8e6f6da7826eb57c1c755d183b2a766dd275e493daa447c6d8b/ansible-2.4.1.0.tar.gz"
-    sha256 "da61afb29cc5bd6bc4737a2da06e673fb6fccc3ae2685130d19ab3a8e404fb6a"
   end
 
   resource "ansible-lint" do
