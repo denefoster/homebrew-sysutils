@@ -8,8 +8,15 @@ class Ansibleinz < Formula
 
   depends_on :python
   depends_on "pkg-config" => :build
+#  depends_on "postgresql" => :build
   depends_on "libyaml"
   depends_on "openssl@1.1"
+
+  bottle do
+    root_url "http://vagrant.nzrs.net.nz"
+    cellar :any
+    sha256 "89972417c4f979363ae9945d5f7a631504b68d9aba641a15cb8588807e1ccb3a" => :high_sierra
+  end
 
   resource "alembic" do
     url "https://files.pythonhosted.org/packages/52/ec/4514b7b9a849e9b35ebf60888c9a1cf8262e927e9a9c8f894ffbf5a76ec7/alembic-0.9.5.tar.gz"
@@ -301,6 +308,11 @@ class Ansibleinz < Formula
     sha256 "3d132465a75b57aa818341c6521392a06cc660feb3988d7f1074f39bd23c9a92"
   end
 
+  resource "psycopg2" do
+    url "https://files.pythonhosted.org/packages/dd/47/000b405d73ca22980684fd7bd3318690cc03cfa3b2ae1c5b7fff8050b28a/psycopg2-2.7.3.2.tar.gz"
+    sha256 "5c3213be557d0468f9df8fe2487eaf2990d9799202c5ff5cb8d394d09fad9b2a"
+  end
+
   resource "poyo" do
     url "https://files.pythonhosted.org/packages/9f/7a/d92b5cc1d2f6bf0f1c1cd427e1665a3b3889563ba25fbb66f50356954c45/poyo-0.4.1.tar.gz"
     sha256 "103b4ee3e1c7765098fe1cabe43f828db2e2a6079646561a2117e1a809f352d6"
@@ -519,7 +531,11 @@ class Ansibleinz < Formula
   def install
     venv = virtualenv_create(libexec)
 
-    res = resources.map(&:name).to_set - ["ara", "molecule"]
+    res = resources.map(&:name).to_set - ["ara", "molecule", "psycopg2"]
+    resource("psycopg2").stage do
+#      system libexec/"bin/python", "setup.py", "build_ext", "--pg-config=#{Formula["postgresql"].opt_prefix}/bin/pg_config", "install"
+      system libexec/"bin/python", "setup.py", "build_ext", "--pg-config=/usr/local/Cellar/postgresql/10.1/bin/pg_config", "install"
+    end
     venv.pip_install_and_link resource("ara")
     venv.pip_install_and_link resource("molecule")
 
