@@ -15,8 +15,8 @@ class Ansibleinz < Formula
   bottle do
     root_url "http://vagrant.nzrs.net.nz"
     cellar :any
-    rebuild 3
-    sha256 "df8f233dfe3abb6821024f727960d6d409d05305e8b706a39502db0467d336a9" => :high_sierra
+    rebuild 4
+    sha256 "ee5fd27c457056666935cb32ff2cc1dcaf88ebe97a679a0305c044db12034ba7" => :high_sierra
   end
 
   resource "alembic" do
