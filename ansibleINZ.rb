@@ -787,7 +787,7 @@ class Ansibleinz < Formula
   def install
     venv = virtualenv_create(libexec)
 
-    res = resources.map(&:name).to_set - ["ara", "molecule", "psycopg2", "yamllint"]
+    res = resources.map(&:name).to_set - ["ara", "molecule", "psycopg2", "yamllint", "pytest"]
     resource("psycopg2").stage do
 #      system libexec/"bin/python", "setup.py", "build_ext", "--pg-config=#{Formula["postgresql"].opt_prefix}/bin/pg_config", "install"
       system libexec/"bin/python", "setup.py", "build_ext", "--pg-config=/usr/local/Cellar/postgresql/10.1/bin/pg_config", "install"
@@ -795,6 +795,7 @@ class Ansibleinz < Formula
     venv.pip_install_and_link resource("ara")
     venv.pip_install_and_link resource("molecule")
     venv.pip_install_and_link resource("yamllint")
+    venv.pip_install_and_link resource("pytest")
 
     res.each do |r|
       venv.pip_install resource(r)
