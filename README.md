@@ -1,6 +1,7 @@
 Checkout the homebrew tap somewhere;
 
-```brew install python```
+```
+brew install python
 python -m pip install virtualenvwrapper
 source $(brew --prefix)/bin/virtualenvwrapper.sh
 ```
