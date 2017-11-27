@@ -15,8 +15,8 @@ class Ansibleinz < Formula
   bottle do
     root_url "http://vagrant.nzrs.net.nz"
     cellar :any
-    rebuild 4
-    sha256 "ee5fd27c457056666935cb32ff2cc1dcaf88ebe97a679a0305c044db12034ba7" => :high_sierra
+    rebuild 6
+    sha256 "abc4e057a95e2f2ffbe4ac752df379a068101f2e361a60fbce188efae0c25558" => :high_sierra
   end
 
   resource "alembic" do
@@ -787,24 +787,22 @@ class Ansibleinz < Formula
   def install
     venv = virtualenv_create(libexec)
 
-    res = resources.map(&:name).to_set - ["ara", "molecule", "psycopg2", "yamllint", "pytest"]
+    res = resources.map(&:name).to_set - ["ara", "molecule", "psycopg2", "yamllint", "pytest", "flake8", "ansible-lint"]
     resource("psycopg2").stage do
-#      system libexec/"bin/python", "setup.py", "build_ext", "--pg-config=#{Formula["postgresql"].opt_prefix}/bin/pg_config", "install"
       system libexec/"bin/python", "setup.py", "build_ext", "--pg-config=/usr/local/Cellar/postgresql/10.1/bin/pg_config", "install"
     end
     venv.pip_install_and_link resource("ara")
     venv.pip_install_and_link resource("molecule")
     venv.pip_install_and_link resource("yamllint")
     venv.pip_install_and_link resource("pytest")
+    venv.pip_install_and_link resource("ansible-lint")
 
     res.each do |r|
       venv.pip_install resource(r)
     end
     venv.pip_install_and_link buildpath
+    venv.pip_install_and_link resource("flake8")
   end
-#  def install
-#    virtualenv_install_with_resources
-#  end
 
   test do
     false
